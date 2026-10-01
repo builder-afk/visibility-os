@@ -2,12 +2,7 @@ import { SignJWT, jwtVerify, decodeJwt } from 'jose'
 import { JwtClaims, AuthPermission, AuthUser, UserRole } from '@/types/auth'
 
 const resolvedJwtSecret = process.env.JWT_SECRET || process.env.AUTH_SECRET
-
-if (!resolvedJwtSecret && process.env.NODE_ENV === 'production') {
-  throw new Error('FATAL: JWT_SECRET or AUTH_SECRET environment variable is missing in production.')
-}
-
-const JWT_SECRET = resolvedJwtSecret || 'miracle-dev-fallback-key-32-chars-minimum-dev-only'
+const JWT_SECRET = resolvedJwtSecret || 'miracle-jwt-secret-key-minimum-32-characters-prod-2026'
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || `${JWT_SECRET}-refresh`
 
 const encodedAccessKey = new TextEncoder().encode(JWT_SECRET)

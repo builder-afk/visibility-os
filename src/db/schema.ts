@@ -1,0 +1,84 @@
+import { pgTable, serial, text, timestamp, integer, primaryKey } from 'drizzle-orm/pg-core';
+
+export const users = pgTable('users', {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  name: text("name"),
+  email: text("email").unique(),
+  password: text("password"),
+  mobileNumber: text("mobile_number"),
+  profession: text("profession"),
+  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  image: text("image"),
+  subscriptionTier: text("subscription_tier").default("free"),
+});
+
+export const accounts = pgTable(
+  "accounts",
+  {
+    userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+    type: text("type").$type<import("@auth/core/providers").ProviderType>().notNull(),
+    provider: text("provider").notNull(),
+    providerAccountId: text("providerAccountId").notNull(),
+    refresh_token: text("refresh_token"),
+    access_token: text("access_token"),
+    expires_at: integer("expires_at"),
+    token_type: text("token_type"),
+    scope: text("scope"),
+    id_token: text("id_token"),
+    session_state: text("session_state"),
+  },
+  (account) => ({
+    compoundKey: primaryKey({ columns: [account.provider, account.providerAccountId] }),
+  })
+);
+
+export const sessions = pgTable("sessions", {
+  sessionToken: text("sessionToken").primaryKey(),
+  userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
+});
+
+export const verificationTokens = pgTable(
+  "verificationToken",
+  {
+    identifier: text("identifier").notNull(),
+    token: text("token").notNull(),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (vt) => ({
+    compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
+  })
+);
+
+export const contactMessages = pgTable('contact_messages', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull(),
+  company: text('company'),
+  mobileNumber: text('mobile_number'),
+  message: text('message').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const projects = pgTable('projects', {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  user_id: text("user_id").notNull(),
+  name: text("name").notNull(),
+  idea: text("idea").notNull(),
+  stack: text("stack").notNull(),
+  status: text("status").default("pending").notNull(), // 'pending' | 'in_progress' | 'completed'
+  approval_status: text("approval_status").default("pending").notNull(), // 'pending' | 'approved' | 'rejected'
+  model: text("model"),
+  prompt_type: text("prompt_type"),
+  current_step: integer("current_step").default(1).notNull(),
+  created_at: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const prompts = pgTable('prompts', {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  project_id: text("project_id").notNull(),
+  step: integer("step").notNull(),
+  tool: text("tool").notNull(),
+  content: text("content").notNull(),
+  created_at: timestamp('created_at').defaultNow().notNull(),
+});

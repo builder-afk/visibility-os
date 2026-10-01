@@ -1,0 +1,449 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-hand: 'Caveat', cursive;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-brutal: 'Space Grotesk', sans-serif;
+}
+
+:root {
+  --background: #FAF8F3;
+  --foreground: #0f172a;
+
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+
+  --primary: #ff5500;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+
+  --accent: #ff5500;
+  --accent-foreground: #ffffff;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #ff5500;
+
+  --radius: 1rem;
+  --shadow-dashboard: 0 20px 40px -15px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply text-foreground bg-background;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  html {
+    @apply font-sans;
+    font-size: 90%;
+    zoom: 0.9;
+  }
+
+  /* Accessible focus rings */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
+
+@layer utilities {
+  .h-screen {
+    height: 125vh !important;
+  }
+
+  .min-h-screen {
+    min-height: 125vh !important;
+  }
+
+  .w-screen {
+    width: 125vw !important;
+  }
+
+  .min-w-screen {
+    min-width: 125vw !important;
+  }
+}
+
+/* Core Features Marketing Section (.c1-*) */
+.c1-wrapper {
+  background-color: transparent;
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+}
+
+.c1-container {
+  max-width: 1100px;
+  width: 100%;
+  text-align: center;
+}
+
+.c1-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #F5C344, #F28482, #B567C2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  margin-bottom: 16px;
+}
+
+.c1-title {
+  font-size: 2.75rem;
+  font-weight: 500;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.c1-subtitle {
+  font-size: 1.125rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 50px;
+}
+
+.c1-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .c1-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .c1-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .c1-title {
+    font-size: 2.25rem;
+  }
+}
+
+.c1-card {
+  border-radius: 20px;
+  height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  background: #F4F8F9;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+}
+
+.c1-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1e293b;
+  padding: 24px;
+  z-index: 2;
+  margin: 0;
+}
+
+/* Card 1 — Smart Prompt Suggestions */
+.c1-card-1 {
+  background: radial-gradient(circle at 50% 0%, #FFB347 0%, #F9ED96 30%, #F4F8F9 60%, #F4F8F9 100%);
+}
+
+.c1-prompt-box {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 0.8rem;
+  color: #475569;
+  line-height: 1.6;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  position: absolute;
+  top: 30px;
+  left: 24px;
+  right: 24px;
+}
+
+.c1-blur-text {
+  background: linear-gradient(90deg, #FFB347, #E5A1F5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 600;
+}
+
+.c1-pill-btn {
+  position: absolute;
+  top: 180px;
+  left: 40px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1e293b;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.c1-sparkle {
+  color: #a855f7;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.c1-cursor {
+  position: absolute;
+  top: 205px;
+  left: 110px;
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+  z-index: 10;
+}
+
+/* Card 2 — API Access */
+.c1-card-2 {
+  background: radial-gradient(circle at 50% 0%, #E5A1F5 0%, #F8ACA0 30%, #F4F8F9 60%, #F4F8F9 100%);
+}
+
+.c1-api-visual {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.c1-network-img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  margin-top: 20px;
+}
+
+/* Card 3 — Project Library */
+.c1-card-3 {
+  background: radial-gradient(circle at 50% 0%, #F9ED96 0%, #E5A1F5 30%, #F4F8F9 60%, #F4F8F9 100%);
+}
+
+.c1-mesh {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.8) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+  background-size: 16px 16px;
+  -webkit-mask-image: radial-gradient(circle at center top, black 0%, transparent 80%);
+  mask-image: radial-gradient(circle at center top, black 0%, transparent 80%);
+}
+
+.c1-folder {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.08));
+}
+
+.c1-search {
+  position: absolute;
+  top: 220px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border: 1px solid #000000;
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #1e293b;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Progressive Enhancement: Interactive Button Hover States ── */
+.btn-interactive {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+.btn-interactive:hover {
+  transform: translateY(-1.5px) scale(1.015);
+  box-shadow: 0 10px 25px -5px rgba(255, 85, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-interactive:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Accessible Skip Link */
+.skip-to-content-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  transition: top 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.skip-to-content-link:focus {
+  top: 1rem;
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ── Progressive Enhancement: Dedicated Print Stylesheet ── */
+@media print {
+
+  /* Hide non-printable navigation, banners, floaters, and interactive overlays */
+  header,
+  nav,
+  footer,
+  .print-hidden,
+  .skip-to-content-link,
+  #cookie-banner,
+  #floating-contact,
+  #scroll-progress,
+  #scroll-to-top,
+  .sonner-toast,
+  [data-sonner-toaster],
+  button:not(.print-keep),
+  .mobile-menu-overlay,
+  .search-modal-backdrop {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Expand layout to full paper width */
+  main,
+  article,
+  .container,
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-5xl,
+  .max-w-4xl {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Ensure headings break cleanly */
+  h1,
+  h2,
+  h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+    color: #000000 !important;
+  }
+
+  /* Show URLs for external reference links */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 80%;
+    color: #555555;
+  }
+
+  /* Clean up cards for black & white print */
+  .c1-card,
+  .rounded-3xl,
+  .rounded-2xl {
+    box-shadow: none !important;
+    border: 1px solid #cccccc !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
